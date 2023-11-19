@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dowe4rx25g0th"]
+
+[ext_resource type="Texture2D" uid="uid://17712oee1aba" path="res://Sprites/tire.png" id="1_7el1s"]
+[ext_resource type="Script" path="res://Scripts/tire.gd" id="1_yhvlb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y1xx0"]
+radius = 15.0333
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_yhvlb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_y1xx0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7el1s")

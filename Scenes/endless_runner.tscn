@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl8jllgrjrcip"]
+
+[ext_resource type="PackedScene" uid="uid://dx1qlw4gwa3xe" path="res://Scenes/player.tscn" id="1_ce5el"]
+[ext_resource type="PackedScene" uid="uid://bdd8fpsnfpt2f" path="res://Scenes/floor.tscn" id="2_70opn"]
+[ext_resource type="PackedScene" uid="uid://dowe4rx25g0th" path="res://Scenes/tire.tscn" id="3_rjho2"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_ce5el")]
+position = Vector2(59, 130)
+JUMP_VELOCITY = -450.0
+
+[node name="Floor" parent="." instance=ExtResource("2_70opn")]
+position = Vector2(496, 156)
+
+[node name="Tire" parent="." instance=ExtResource("3_rjho2")]
+position = Vector2(229, 118)
+speed = Vector2(-150, -300)
