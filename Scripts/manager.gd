@@ -4,6 +4,9 @@ extends Node
 static var stop_game := false
 var current_scene = null
 
+var screen_width = ProjectSettings.get_setting("display/window/size/viewport_width")
+var screen_height = ProjectSettings.get_setting("display/window/size/viewport_height") 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var root = get_tree().get_root()

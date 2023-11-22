@@ -1,7 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://drufdojbksyia"]
+[gd_scene load_steps=6 format=3 uid="uid://drufdojbksyia"]
 
 [ext_resource type="Script" path="res://Scripts/Pong/ball.gd" id="1_anvds"]
 [ext_resource type="Texture2D" uid="uid://r1voo4x7jjxt" path="res://Sprites/Pong/ball.png" id="1_msoxg"]
+[ext_resource type="Shader" path="res://Shaders/Pong/outline.gdshader" id="2_qii2p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ie3ig"]
+shader = ExtResource("2_qii2p")
+shader_parameter/outline_width = 1.0
+shader_parameter/outline_color = Vector4(0, 0, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pqp3d"]
 
@@ -9,6 +15,7 @@
 script = ExtResource("1_anvds")
 
 [node name="Ball" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ie3ig")
 texture = ExtResource("1_msoxg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

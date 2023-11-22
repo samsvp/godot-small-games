@@ -4,12 +4,14 @@
 extends CharacterBody2D
 
 @export var SPEED = 300.0
-var screen_width = ProjectSettings.get_setting("display/window/size/viewport_width")
-var screen_height = ProjectSettings.get_setting("display/window/size/viewport_height") 
-const paddle_size = 48
+const paddle_size = 64
+var outline_color := Vector4(0.2, 1.0, 0.3, 1.0)
+@onready var Character = %Character
 
 func _ready():
-	self.position = Vector2(0.1 * self.screen_width, self.screen_height / 2)
+	var paddle: Sprite2D = get_node("Paddle")
+	Character.set_outline(paddle, outline_color)
+	self.position = Vector2(0.1 * Manager.screen_width, Manager.screen_height / 2)
 
 
 func _physics_process(delta):
@@ -20,6 +22,5 @@ func _physics_process(delta):
 		self.velocity.y = move_toward(velocity.y, 0, SPEED)
 
 	move_and_slide()
+	self.position.y = Character.clamp_y(self.position.y, self.paddle_size)
 	
-	self.position.y = min(self.position.y, self.screen_height - self.paddle_size / 2)
-	self.position.y = max(self.position.y, self.paddle_size / 2)

@@ -6,12 +6,15 @@ extends Area2D
 @export var SPEED = 250.0
 @export_range(0.0, 1.0) var tracking_pos = 0.5
 
-var screen_width = ProjectSettings.get_setting("display/window/size/viewport_width")
-var screen_height = ProjectSettings.get_setting("display/window/size/viewport_height")
 const paddle_size = 64
+var outline_color := Vector4(0.8, 0.0, 0.85, 1.0)
+@onready var Ball := %Ball
+@onready var Character = %Character
 
 func _ready():
-	self.position = Vector2(0.9 * self.screen_width, self.screen_height / 2)
+	var paddle: Sprite2D = get_node("Paddle")
+	Character.set_outline(paddle, outline_color)
+	self.position = Vector2(0.9 * Manager.screen_width, Manager.screen_height / 2)
 
 
 func _process(delta: float):
@@ -20,13 +23,12 @@ func _process(delta: float):
 
 func follow_ball(delta: float):
 	const eps := 10.0
-	var ball_position = %Ball.position
-	if ball_position.x < self.tracking_pos * self.screen_width:
+	var ball_position = Ball.position
+	if ball_position.x < self.tracking_pos * Manager.screen_width:
 		return
 		
-	if %Ball.position.y > self.position.y + eps and \
-			self.position.y < self.screen_height - self.paddle_size / 2:
+	if Ball.position.y > self.position.y + eps:
 		self.position.y += SPEED * delta
-	elif %Ball.position.y < self.position.y - eps and \
-			self.position.y > self.paddle_size / 2:
+	elif Ball.position.y < self.position.y - eps:
 		self.position.y -= SPEED * delta
+	self.position.y = Character.clamp_y(self.position.y, self.paddle_size)
