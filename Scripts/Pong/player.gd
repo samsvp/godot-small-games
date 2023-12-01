@@ -5,8 +5,10 @@ extends CharacterBody2D
 
 @export var SPEED = 300.0
 const paddle_size = 64
-var outline_color := Vector4(0.2, 1.0, 0.3, 1.0)
+var outline_color := Color(0.2, 1.0, 0.3, 1.0)
 @onready var Character = %Character
+@onready var PongManager := %PongManager
+
 
 func _ready():
 	var paddle: Sprite2D = get_node("Paddle")
@@ -15,6 +17,9 @@ func _ready():
 
 
 func _physics_process(delta):
+	if PongManager.has_game_finished:
+		return 
+	
 	var direction = Input.get_axis("ui_up", "ui_down")
 	if direction:
 		self.velocity.y = direction * SPEED
@@ -23,4 +28,7 @@ func _physics_process(delta):
 
 	move_and_slide()
 	self.position.y = Character.clamp_y(self.position.y, self.paddle_size)
-	
+
+
+func reset():
+	self.position = Character.reset(self.position)

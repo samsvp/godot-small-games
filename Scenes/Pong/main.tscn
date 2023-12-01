@@ -1,22 +1,46 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmnfg4rtdde1i"]
+[gd_scene load_steps=7 format=3 uid="uid://bmnfg4rtdde1i"]
 
 [ext_resource type="PackedScene" uid="uid://138pl61u3e7f" path="res://Scenes/Pong/player.tscn" id="1_10x1n"]
 [ext_resource type="PackedScene" uid="uid://bsu3ograhbayt" path="res://Scenes/Pong/enemy.tscn" id="2_uduiv"]
 [ext_resource type="PackedScene" uid="uid://drufdojbksyia" path="res://Scenes/Pong/ball.tscn" id="3_0qd7n"]
 [ext_resource type="Script" path="res://Scripts/Pong/Character.gd" id="4_a48un"]
+[ext_resource type="Script" path="res://Scripts/Pong/PongManager.gd" id="5_q0i8i"]
+[ext_resource type="Texture2D" uid="uid://6bc3rma1dvj" path="res://Sprites/Pong/numbers.png" id="6_qu8nt"]
 
 [node name="main" type="Node2D"]
+
+[node name="PlayerScore" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(240, 40)
+texture = ExtResource("6_qu8nt")
+hframes = 3
+vframes = 4
+frame = 9
+
+[node name="EnemyScore" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(400, 40)
+texture = ExtResource("6_qu8nt")
+hframes = 3
+vframes = 4
+frame = 9
 
 [node name="Ball" parent="." instance=ExtResource("3_0qd7n")]
 unique_name_in_owner = true
 position = Vector2(262, 86)
 
 [node name="Player" parent="." instance=ExtResource("1_10x1n")]
+unique_name_in_owner = true
 position = Vector2(56, 83)
 
-[node name="enemy" parent="." instance=ExtResource("2_uduiv")]
+[node name="Enemy" parent="." instance=ExtResource("2_uduiv")]
+unique_name_in_owner = true
 position = Vector2(446, 77)
 
 [node name="Character" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_a48un")
+
+[node name="PongManager" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_q0i8i")
