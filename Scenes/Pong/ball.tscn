@@ -15,6 +15,7 @@ initial_velocity_min = 100.0
 initial_velocity_max = 100.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
+hue_variation_max = 0.05
 
 [sub_resource type="Gradient" id="Gradient_c166e"]
 offsets = PackedFloat32Array(0.435644, 1)
@@ -45,6 +46,7 @@ damping_max = 100.0
 scale_min = 0.5
 scale_curve = SubResource("CurveTexture_pnvnu")
 color_ramp = SubResource("GradientTexture1D_oxal7")
+hue_variation_max = 0.1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ie3ig"]
 shader = ExtResource("2_qii2p")

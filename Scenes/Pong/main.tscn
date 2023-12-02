@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmnfg4rtdde1i"]
+[gd_scene load_steps=19 format=3 uid="uid://bmnfg4rtdde1i"]
 
 [ext_resource type="PackedScene" uid="uid://138pl61u3e7f" path="res://Scenes/Pong/player.tscn" id="1_10x1n"]
 [ext_resource type="PackedScene" uid="uid://bsu3ograhbayt" path="res://Scenes/Pong/enemy.tscn" id="2_uduiv"]
@@ -6,6 +6,58 @@
 [ext_resource type="Script" path="res://Scripts/Pong/Character.gd" id="4_a48un"]
 [ext_resource type="Script" path="res://Scripts/Pong/PongManager.gd" id="5_q0i8i"]
 [ext_resource type="Texture2D" uid="uid://6bc3rma1dvj" path="res://Sprites/Pong/numbers.png" id="6_qu8nt"]
+[ext_resource type="Texture2D" uid="uid://bgshvok0o73qr" path="res://Sprites/Pong/square-full.png" id="7_ginwb"]
+[ext_resource type="Texture2D" uid="uid://cjile311soywb" path="res://Sprites/Pong/square-black-full.png" id="8_u4qte"]
+[ext_resource type="Texture2D" uid="uid://cbj1arsob4ouc" path="res://Sprites/Pong/button-background-color.png" id="9_7fj3y"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rx174"]
+texture = ExtResource("9_7fj3y")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n05iv"]
+texture = ExtResource("9_7fj3y")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yq1oa"]
+texture = ExtResource("9_7fj3y")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8rsgi"]
+texture = ExtResource("9_7fj3y")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="Gradient" id="Gradient_38rc3"]
+offsets = PackedFloat32Array(0.386139, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d2uor"]
+gradient = SubResource("Gradient_38rc3")
+
+[sub_resource type="Curve" id="Curve_kfgji"]
+_data = [Vector2(0.0121951, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tb63v"]
+curve = SubResource("Curve_kfgji")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4wluj"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 83.03
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 84.51
+initial_velocity_max = 183.1
+angular_velocity_max = 81.13
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_min = 10.0
+linear_accel_max = 250.0
+radial_accel_min = 8.45
+radial_accel_max = 28.17
+damping_min = 36.62
+damping_max = 36.62
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_tb63v")
+color_ramp = SubResource("GradientTexture1D_d2uor")
+hue_variation_max = 0.2
 
 [node name="main" type="Node2D"]
 
@@ -44,3 +96,55 @@ script = ExtResource("4_a48un")
 [node name="PongManager" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("5_q0i8i")
+
+[node name="GUI" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainMenuBG" type="Sprite2D" parent="GUI"]
+position = Vector2(320, 160)
+scale = Vector2(25, 25)
+texture = ExtResource("8_u4qte")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 234.0
+offset_top = 107.0
+offset_right = 366.0
+offset_bottom = 173.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="GUI/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_rx174")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_n05iv")
+text = "Start"
+
+[node name="EndButton" type="Button" parent="GUI/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_yq1oa")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8rsgi")
+text = "Back"
+
+[node name="WinExplosion" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(320, 320)
+emitting = false
+amount = 256
+process_material = SubResource("ParticleProcessMaterial_4wluj")
+texture = ExtResource("7_ginwb")
+one_shot = true
+explosiveness = 0.5
+
+[connection signal="pressed" from="GUI/VBoxContainer/StartButton" to="PongManager" method="_on_start_button_pressed"]
+[connection signal="pressed" from="GUI/VBoxContainer/EndButton" to="PongManager" method="_on_end_button_pressed"]

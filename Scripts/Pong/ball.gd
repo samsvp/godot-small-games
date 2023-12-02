@@ -110,6 +110,9 @@ func change_direction(node: Node2D, x_direction: int) -> void:
 
 
 func _on_timer_timeout():
+	if PongManager.has_game_finished:
+		return
+	
 	self.speed = self.min_speed
 	self.direction = self.get_random_initial_direction()
 	self.Particle.emitting = true
