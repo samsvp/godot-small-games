@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsu3ograhbayt"]
+[gd_scene load_steps=7 format=3 uid="uid://bsu3ograhbayt"]
 
 [ext_resource type="Script" path="res://Scripts/Pong/enemy.gd" id="1_dcuid"]
 [ext_resource type="Texture2D" uid="uid://b8h8p063fxsd0" path="res://Sprites/Pong/paddle.png" id="1_javrs"]
 [ext_resource type="Shader" path="res://Shaders/Pong/outline.gdshader" id="2_8sas6"]
+[ext_resource type="AudioStream" uid="uid://mom2rqm3hypj" path="res://Audio/Pong/paddle-hit.wav" id="4_efkrd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o43aq"]
 shader = ExtResource("2_8sas6")
@@ -23,3 +24,6 @@ texture = ExtResource("1_javrs")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_v65y0")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_efkrd")

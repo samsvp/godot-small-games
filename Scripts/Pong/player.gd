@@ -8,6 +8,7 @@ const paddle_size = 64
 var outline_color := Color(0.2, 1.0, 0.3, 1.0)
 @onready var Character = %Character
 @onready var PongManager := %PongManager
+@onready var audio_stream := get_node("AudioStreamPlayer2D") as AudioStreamPlayer2D
 
 
 func _ready():
@@ -32,3 +33,7 @@ func _physics_process(delta):
 
 func reset():
 	self.position = Character.reset(self.position)
+
+
+func play_hit_audio():
+	audio_stream.play()

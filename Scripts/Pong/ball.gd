@@ -84,15 +84,15 @@ func add_y_direction_noise():
 
 func _on_body_entered(body: Node2D):
 	if body.name.to_lower() == "player":
-		self.change_direction(body, 1)
+		self.handle_collision(body, 1)
 
 
 func _on_area_entered(area: Area2D):
 	if area.name.to_lower() == "enemy":
-		self.change_direction(area, -1)
+		self.handle_collision(area, -1)
 
 
-func change_direction(node: Node2D, x_direction: int) -> void:
+func handle_collision(node: Node2D, x_direction: int) -> void:
 	self.direction.x = x_direction
 	add_y_direction_noise()
 	Character.set_outline(self.sprite, node.outline_color, 1.0)
@@ -107,6 +107,7 @@ func change_direction(node: Node2D, x_direction: int) -> void:
 		"direction", x_direction * Vector3(1, 0, 0)
 	)
 	self.Particle.process_material.color = node.outline_color
+	node.play_hit_audio()
 
 
 func _on_timer_timeout():

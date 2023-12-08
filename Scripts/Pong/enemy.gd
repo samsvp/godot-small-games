@@ -10,6 +10,7 @@ const paddle_size = 64
 var outline_color := Color(0.8, 0.0, 0.85, 1.0)
 @onready var Ball := %Ball
 @onready var Character = %Character
+@onready var audio_stream := get_node("AudioStreamPlayer2D") as AudioStreamPlayer2D
 
 func _ready():
 	var paddle: Sprite2D = get_node("Paddle")
@@ -37,3 +38,6 @@ func follow_ball(delta: float):
 func reset():
 	self.position = Character.reset(self.position)
 
+
+func play_hit_audio():
+	audio_stream.play()
