@@ -1,6 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://ns87u2m0h4fp"]
+[gd_scene load_steps=5 format=3 uid="uid://ns87u2m0h4fp"]
 
 [ext_resource type="Script" path="res://Scripts/Main menu.gd" id="1_nl7ej"]
+[ext_resource type="Texture2D" uid="uid://cbj1arsob4ouc" path="res://Sprites/Pong/button-background-color.png" id="2_g2kqd"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c12mq"]
+texture = ExtResource("2_g2kqd")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e7kkl"]
+texture = ExtResource("2_g2kqd")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [node name="Main menu" type="Node2D"]
 script = ExtResource("1_nl7ej")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 901.0
+offset_bottom = 501.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 217.0
+offset_right = 584.0
+offset_bottom = 257.0
+alignment = 1
+
+[node name="Pong" type="Button" parent="Control/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_c12mq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_e7kkl")
+text = "PONG"
+
+[node name="Space Shooter" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_c12mq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_e7kkl")
+text = "SPACE SHOOTER"
+
+[connection signal="pressed" from="Control/VBoxContainer/Pong" to="." method="_on_pong_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/Space Shooter" to="." method="_on_space_shooter_pressed"]
