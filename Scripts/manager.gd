@@ -6,6 +6,7 @@ var current_scene = null
 
 var screen_width = ProjectSettings.get_setting("display/window/size/viewport_width")
 var screen_height = ProjectSettings.get_setting("display/window/size/viewport_height") 
+var screen_size := Vector2(screen_width, screen_height)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

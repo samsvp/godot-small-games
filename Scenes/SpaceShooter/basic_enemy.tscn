@@ -1,14 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://b42404uct88ed"]
+[gd_scene load_steps=6 format=3 uid="uid://b42404uct88ed"]
 
 [ext_resource type="Shader" path="res://Shaders/SpaceShooter/basic_enemy.gdshader" id="1_kg6gc"]
 [ext_resource type="Texture2D" uid="uid://ca2ut0ltvmq6m" path="res://Sprites/white.png" id="1_lvi33"]
+[ext_resource type="Script" path="res://Scripts/SpaceShooter/basic_enemy.gd" id="1_v40kf"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ahvdq"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ktrs"]
+size = Vector2(49, 50)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wl02v"]
 shader = ExtResource("1_kg6gc")
-shader_parameter/u_radius = 0.015
+shader_parameter/u_radius = 0.4
 
-[node name="BasicEnemy" type="Node2D"]
+[node name="BasicEnemy" type="Area2D"]
+scale = Vector2(0.6, 0.6)
+script = ExtResource("1_v40kf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_1ktrs")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_ahvdq")
+material = SubResource("ShaderMaterial_wl02v")
 texture = ExtResource("1_lvi33")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
