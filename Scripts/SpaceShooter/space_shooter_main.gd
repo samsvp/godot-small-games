@@ -10,6 +10,7 @@ var spin_enemy_current_count: int = 0
 
 @onready var basic_enemy_timer := %BasicEnemyTimer
 @onready var spin_enemy_timer := %RotatingEnemyTimer
+@onready var Player := %Player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,6 +35,7 @@ func spawn_enemy(current_count: int, max_count: int,
 		return current_count
 	
 	var enemy_scene = pscene.instantiate()
+	enemy_scene.Player = Player
 	add_child(enemy_scene)
 	timer.start(t)
 	return current_count + 1

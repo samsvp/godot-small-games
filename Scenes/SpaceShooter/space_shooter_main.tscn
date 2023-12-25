@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpct0227dtx21"]
+[gd_scene load_steps=7 format=3 uid="uid://dpct0227dtx21"]
 
 [ext_resource type="Script" path="res://Scripts/SpaceShooter/space_shooter_main.gd" id="1_8qakj"]
 [ext_resource type="PackedScene" uid="uid://danp3jjirvbv5" path="res://Scenes/SpaceShooter/player.tscn" id="1_y6e5n"]
 [ext_resource type="PackedScene" uid="uid://bhgfdhcrf3d5m" path="res://Scenes/SpaceShooter/spinner_enemy.tscn" id="3_15ira"]
 [ext_resource type="Script" path="res://Scripts/SpaceShooter/Character.gd" id="3_l7tmi"]
 [ext_resource type="PackedScene" uid="uid://b42404uct88ed" path="res://Scenes/SpaceShooter/basic_enemy.tscn" id="4_fkank"]
+[ext_resource type="Script" path="res://Scripts/SpaceShooter/bullets.gd" id="6_ss4ul"]
 
 [node name="SpaceShooterMain" type="Node2D"]
 script = ExtResource("1_8qakj")
@@ -12,6 +13,7 @@ basic_enemy_scene = ExtResource("4_fkank")
 spin_enemy_scene = ExtResource("3_15ira")
 
 [node name="Player" parent="." instance=ExtResource("1_y6e5n")]
+unique_name_in_owner = true
 position = Vector2(113, 152)
 
 [node name="Character" type="Node2D" parent="."]
@@ -23,6 +25,9 @@ unique_name_in_owner = true
 
 [node name="RotatingEnemyTimer" type="Timer" parent="."]
 unique_name_in_owner = true
+
+[node name="Bullets" type="Node2D" parent="."]
+script = ExtResource("6_ss4ul")
 
 [connection signal="timeout" from="BasicEnemyTimer" to="." method="_on_basic_enemy_timer_timeout"]
 [connection signal="timeout" from="RotatingEnemyTimer" to="." method="_on_rotating_enemy_timer_timeout"]

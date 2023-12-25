@@ -7,7 +7,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_icvk5"]
 shader = ExtResource("1_ar7km")
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="Area2D"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_juu08")
 
@@ -19,3 +19,5 @@ texture = ExtResource("2_fe3gq")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 build_mode = 1
 polygon = PackedVector2Array(0, -35, 20, 35, -20, 35)
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

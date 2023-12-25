@@ -10,6 +10,7 @@ var height_offset: float
 var target: Vector2 
 var rotation_velocity: float = 1
 var max_rot_vel: float = 2
+var Player := CharacterBody2D
 
 
 func _ready():
