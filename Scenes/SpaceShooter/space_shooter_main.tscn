@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bhgfdhcrf3d5m" path="res://Scenes/SpaceShooter/spinner_enemy.tscn" id="3_15ira"]
 [ext_resource type="Script" path="res://Scripts/SpaceShooter/Character.gd" id="3_l7tmi"]
 [ext_resource type="PackedScene" uid="uid://b42404uct88ed" path="res://Scenes/SpaceShooter/basic_enemy.tscn" id="4_fkank"]
-[ext_resource type="Script" path="res://Scripts/SpaceShooter/bullets.gd" id="6_ss4ul"]
+[ext_resource type="PackedScene" uid="uid://b0qn2h43jf3sk" path="res://Scenes/fps_counter.tscn" id="6_jdxeq"]
 
 [node name="SpaceShooterMain" type="Node2D"]
 script = ExtResource("1_8qakj")
@@ -26,8 +26,11 @@ unique_name_in_owner = true
 [node name="RotatingEnemyTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 
-[node name="Bullets" type="Node2D" parent="."]
-script = ExtResource("6_ss4ul")
+[node name="FPS Counter" parent="." instance=ExtResource("6_jdxeq")]
+offset_left = 824.0
+offset_top = -2.0
+offset_right = 901.0
+offset_bottom = 30.0
 
 [connection signal="timeout" from="BasicEnemyTimer" to="." method="_on_basic_enemy_timer_timeout"]
 [connection signal="timeout" from="RotatingEnemyTimer" to="." method="_on_rotating_enemy_timer_timeout"]

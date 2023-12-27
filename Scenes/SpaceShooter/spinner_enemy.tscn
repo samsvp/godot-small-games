@@ -1,20 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhgfdhcrf3d5m"]
+[gd_scene load_steps=8 format=3 uid="uid://bhgfdhcrf3d5m"]
 
 [ext_resource type="Script" path="res://Scripts/SpaceShooter/spinner_enemy.gd" id="1_i10l4"]
 [ext_resource type="Shader" path="res://Shaders/SpaceShooter/hexagram.gdshader" id="1_o1bhu"]
 [ext_resource type="Texture2D" uid="uid://ca2ut0ltvmq6m" path="res://Sprites/white.png" id="2_ub3yd"]
+[ext_resource type="Shader" path="res://Shaders/SpaceShooter/bullet.gdshader" id="4_43xbu"]
+[ext_resource type="Script" path="res://Scripts/SpaceShooter/char_bullets.gd" id="5_v73vp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a1ef8"]
 shader = ExtResource("1_o1bhu")
 shader_parameter/u_radius = 0.4
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d3nup"]
+shader = ExtResource("4_43xbu")
+shader_parameter/bullet_color = null
+
 [node name="SpinnerEnemy" type="Area2D"]
 script = ExtResource("1_i10l4")
+shooting_period = 0.1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(0, -28, 9, -15, 26, -15, 18, 0, 26, 15, 9, 15, 1, 31, -8, 16, -26, 16, -17, 0, -26, -15, -9, -15)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
 material = SubResource("ShaderMaterial_a1ef8")
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_ub3yd")
+
+[node name="SEnemyBullets" type="Node2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_d3nup")
+script = ExtResource("5_v73vp")
+BULLET_COUNT = 2000
+speed = 100.0
+sprite_scale = 0.15
+bullet_color = Color(0.694118, 0.247059, 0.721569, 1)
+
+[node name="SBulletTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="SBulletTimer" to="." method="_on_s_bullet_timer_timeout"]

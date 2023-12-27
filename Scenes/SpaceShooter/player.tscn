@@ -1,15 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://danp3jjirvbv5"]
+[gd_scene load_steps=8 format=3 uid="uid://danp3jjirvbv5"]
 
 [ext_resource type="Shader" path="res://Shaders/SpaceShooter/Player.gdshader" id="1_ar7km"]
 [ext_resource type="Script" path="res://Scripts/SpaceShooter/player.gd" id="1_juu08"]
 [ext_resource type="Texture2D" uid="uid://ca2ut0ltvmq6m" path="res://Sprites/white.png" id="2_fe3gq"]
+[ext_resource type="Shader" path="res://Shaders/SpaceShooter/bullet.gdshader" id="4_qnl0s"]
+[ext_resource type="Script" path="res://Scripts/SpaceShooter/char_bullets.gd" id="5_qxqj4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_icvk5"]
 shader = ExtResource("1_ar7km")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_378km"]
+shader = ExtResource("4_qnl0s")
+shader_parameter/bullet_color = null
+
 [node name="Player" type="Area2D"]
 scale = Vector2(0.5, 0.5)
+collision_layer = 2
 script = ExtResource("1_juu08")
+shooting_period = 0.1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_icvk5")
@@ -20,4 +28,18 @@ texture = ExtResource("2_fe3gq")
 build_mode = 1
 polygon = PackedVector2Array(0, -35, 20, 35, -20, 35)
 
+[node name="PlayerBullets" type="Node2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_378km")
+script = ExtResource("5_qxqj4")
+BULLET_COUNT = 50
+speed = 500.0
+sprite_scale = 0.15
+bullet_color = Color(0.305882, 0.843137, 0.329412, 1)
+collision_layer = 2
+
+[node name="PBulletTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="timeout" from="PBulletTimer" to="." method="_on_p_bullet_timer_timeout"]

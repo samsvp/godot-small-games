@@ -17,10 +17,6 @@ func _ready():
 	self.basic_enemy_timer.start(0.5)
 	self.spin_enemy_timer.start(10)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 
 func remove_basic_enemy() -> void:
 	self.basic_enemy_current_count -= 1

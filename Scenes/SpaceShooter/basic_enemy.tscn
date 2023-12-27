@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b42404uct88ed"]
+[gd_scene load_steps=9 format=3 uid="uid://b42404uct88ed"]
 
 [ext_resource type="Shader" path="res://Shaders/SpaceShooter/basic_enemy.gdshader" id="1_kg6gc"]
 [ext_resource type="Texture2D" uid="uid://ca2ut0ltvmq6m" path="res://Sprites/white.png" id="1_lvi33"]
 [ext_resource type="Script" path="res://Scripts/SpaceShooter/basic_enemy.gd" id="1_v40kf"]
+[ext_resource type="Shader" path="res://Shaders/SpaceShooter/bullet.gdshader" id="4_5klpt"]
+[ext_resource type="Script" path="res://Scripts/SpaceShooter/char_bullets.gd" id="4_e5o66"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ktrs"]
 size = Vector2(49, 50)
@@ -10,6 +12,10 @@ size = Vector2(49, 50)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wl02v"]
 shader = ExtResource("1_kg6gc")
 shader_parameter/u_radius = 0.4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4e37m"]
+shader = ExtResource("4_5klpt")
+shader_parameter/bullet_color = null
 
 [node name="BasicEnemy" type="Area2D"]
 scale = Vector2(0.6, 0.6)
@@ -25,6 +31,15 @@ texture = ExtResource("1_lvi33")
 
 [node name="ShootTimer" type="Timer" parent="."]
 unique_name_in_owner = true
+
+[node name="EnemyBullets" type="Node2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_4e37m")
+script = ExtResource("4_e5o66")
+BULLET_COUNT = 10
+speed = 200.0
+sprite_scale = 0.15
+bullet_color = Color(0.866667, 0.243137, 0.266667, 1)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

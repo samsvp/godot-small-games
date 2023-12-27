@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0qn2h43jf3sk"]
+
+[ext_resource type="Script" path="res://Scripts/FPSLabel.gd" id="1_jfynm"]
+
+[node name="FPS Counter" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Sample Text"
+script = ExtResource("1_jfynm")

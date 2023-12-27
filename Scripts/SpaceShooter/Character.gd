@@ -13,7 +13,7 @@ static func move(position: Vector2, direction: Vector2,
 
 static func take_damage(current_health: int, damage: int, 
 						kill_func: Callable) -> int:
-	current_health -= 1
+	current_health -= damage
 	if current_health <= 0:
 		kill_func.call()
 	return current_health

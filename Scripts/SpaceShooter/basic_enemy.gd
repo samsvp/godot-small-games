@@ -9,6 +9,7 @@ extends Area2D
 var height_offset: float
 var target: Vector2 
 @onready var ShootTimer := %ShootTimer
+@onready var bullets: CharBullet = %EnemyBullets
 var Player := CharacterBody2D
 
 
@@ -29,6 +30,7 @@ func _physics_process(delta):
 
 func _on_shoot_timer_timeout():
 	var target = Player.position
+	self.bullets.shoot(self.position, target - self.position)
 
 
 func _on_area_entered(area):
