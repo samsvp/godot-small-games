@@ -11,10 +11,13 @@ static func move(position: Vector2, direction: Vector2,
 			).clamp(Vector2.ZERO, Manager.screen_size)
 
 
-static func take_damage(current_health: int, damage: int, 
+static func take_damage(character: Node2D,
+						damage: int, 
 						kill_func: Callable) -> int:
-	current_health -= damage
+	var current_health = character.current_health - damage
+	character.smaterial.set_shader_parameter("color", character.hit_color)
 	if current_health <= 0:
 		kill_func.call()
+	character.hit_timer.start(0.1)
 	return current_health
 	

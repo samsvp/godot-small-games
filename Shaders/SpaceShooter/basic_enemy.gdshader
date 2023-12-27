@@ -1,6 +1,7 @@
 shader_type canvas_item;
 
 uniform float u_radius = 0.4;
+uniform vec3 color;
 
 float sdf_box(float radius, vec2 p)
 {
@@ -18,7 +19,7 @@ void fragment()
 	
 	float d = sdf_box(u_radius, uv);
 	float alpha = pow(1.0 - d, 20.0);
-	vec3 col = vec3(0.95, 0.5, 0.5);
+	vec3 col = color;
 	col *= 0.9 + 0.3 * cos(80.0 * d + TIME);
 	col = mix( col, vec3(1.0), 1.0-smoothstep(0.0,0.02,abs(d)) );
 	

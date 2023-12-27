@@ -10,8 +10,10 @@
 size = Vector2(49, 50)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wl02v"]
+resource_local_to_scene = true
 shader = ExtResource("1_kg6gc")
 shader_parameter/u_radius = 0.4
+shader_parameter/color = null
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4e37m"]
 shader = ExtResource("4_5klpt")
@@ -19,6 +21,8 @@ shader_parameter/bullet_color = null
 
 [node name="BasicEnemy" type="Area2D"]
 scale = Vector2(0.6, 0.6)
+collision_layer = 3
+collision_mask = 2
 script = ExtResource("1_v40kf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -26,6 +30,7 @@ position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_1ktrs")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_wl02v")
 texture = ExtResource("1_lvi33")
 
@@ -41,5 +46,9 @@ speed = 200.0
 sprite_scale = 0.15
 bullet_color = Color(0.866667, 0.243137, 0.266667, 1)
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[node name="HitTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]

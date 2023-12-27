@@ -6,22 +6,33 @@ extends Area2D
 
 
 @export var initial_speed := 2
-var height_offset: float
-var target: Vector2 
-@onready var ShootTimer := %ShootTimer
+@export var current_health = 6
+@export var color := Color(0.95, 0.5, 0.5)
+@export var hit_color := Color(1.0, 1.0, 0.2)
+
+@onready var shoot_timer := %ShootTimer
+@onready var hit_timer := %HitTimer
 @onready var bullets: CharBullet = %EnemyBullets
+@onready var sprite2d: Sprite2D = %Sprite2D
+@onready var collision_shape2d: CollisionShape2D = $CollisionShape2D
+
+var height_offset: float
+var target: Vector2
 var Player := CharacterBody2D
+@onready var smaterial: Material = %Sprite2D.material
 
 
 func _ready():
 	self.position.x = randi_range(50, Manager.screen_width - 50)
 	self.target = Vector2(self.position.x, Manager.screen_height / 2)
 	self.height_offset = randf_range(-100, 100)
-	ShootTimer.start(1)
+	self.smaterial.set_shader_parameter("color", color)
+	shoot_timer.start(1)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	Enemy.physics_process(self)
 	if self.position.y > Manager.screen_height / 2 + height_offset:
 		return
 	
@@ -33,6 +44,9 @@ func _on_shoot_timer_timeout():
 	self.bullets.shoot(self.position, target - self.position)
 
 
-func _on_area_entered(area):
-	if area.name == "Player":
-		area.take_damage(1)
+func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
+	self.current_health = Enemy.on_body_shape_entered(body_rid, 1, self)
+
+
+func _on_hit_timer_timeout():
+	Enemy.hit_timeout(self)

@@ -24,6 +24,7 @@ Manager="*res://Scripts/manager.gd"
 window/size/viewport_width=900
 window/size/viewport_height=500
 window/stretch/mode="canvas_items"
+window/vsync/vsync_mode=0
 
 [rendering]
 

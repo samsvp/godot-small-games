@@ -7,14 +7,18 @@
 [ext_resource type="Script" path="res://Scripts/SpaceShooter/char_bullets.gd" id="5_v73vp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a1ef8"]
+resource_local_to_scene = true
 shader = ExtResource("1_o1bhu")
 shader_parameter/u_radius = 0.4
+shader_parameter/color = null
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d3nup"]
 shader = ExtResource("4_43xbu")
 shader_parameter/bullet_color = null
 
 [node name="SpinnerEnemy" type="Area2D"]
+collision_layer = 3
+collision_mask = 2
 script = ExtResource("1_i10l4")
 shooting_period = 0.1
 
@@ -22,12 +26,13 @@ shooting_period = 0.1
 polygon = PackedVector2Array(0, -28, 9, -15, 26, -15, 18, 0, 26, 15, 9, 15, 1, 31, -8, 16, -26, 16, -17, 0, -26, -15, -9, -15)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 z_index = 2
 material = SubResource("ShaderMaterial_a1ef8")
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_ub3yd")
 
-[node name="SEnemyBullets" type="Node2D" parent="."]
+[node name="EnemyBullets" type="Node2D" parent="."]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_d3nup")
 script = ExtResource("5_v73vp")
@@ -39,4 +44,9 @@ bullet_color = Color(0.694118, 0.247059, 0.721569, 1)
 [node name="SBulletTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 
+[node name="HitTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
 [connection signal="timeout" from="SBulletTimer" to="." method="_on_s_bullet_timer_timeout"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]

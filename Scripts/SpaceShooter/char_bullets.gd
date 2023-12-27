@@ -9,6 +9,7 @@ class_name CharBullet
 @export var bullet_color: Color
 @export var collision_layer: int = 1
 var bullet_array: BulletArray
+var stop := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,7 +27,8 @@ func _process(delta):
 
 
 func shoot(origin: Vector2, direction: Vector2):
-	self.bullet_array.shoot(origin, direction)
+	if not self.stop:
+		self.bullet_array.shoot(origin, direction)
 
 
 func _physics_process(delta):

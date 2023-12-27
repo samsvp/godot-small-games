@@ -1,5 +1,6 @@
 shader_type canvas_item;
 
+uniform vec3 color;
 
 float sdf_triangle_iso( in vec2 p, in vec2 q )
 {
@@ -25,7 +26,7 @@ void fragment()
 	
 	float d = sdf_triangle_iso( uv, vec2(0.5, 1.3) );
 	float alpha = pow(1.0 - d, 15.0);
-	vec3 col = vec3(0.5, 0.95, 0.5);
+	vec3 col = color;
 	col *= 0.8 + 0.2 * cos(80.0 * d + TIME);
 	col = mix( col, vec3(1.0), 1.0-smoothstep(0.0,0.02,abs(d)) );
 	

@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpct0227dtx21"]
+[gd_scene load_steps=8 format=3 uid="uid://dpct0227dtx21"]
 
 [ext_resource type="Script" path="res://Scripts/SpaceShooter/space_shooter_main.gd" id="1_8qakj"]
 [ext_resource type="PackedScene" uid="uid://danp3jjirvbv5" path="res://Scenes/SpaceShooter/player.tscn" id="1_y6e5n"]
 [ext_resource type="PackedScene" uid="uid://bhgfdhcrf3d5m" path="res://Scenes/SpaceShooter/spinner_enemy.tscn" id="3_15ira"]
 [ext_resource type="Script" path="res://Scripts/SpaceShooter/Character.gd" id="3_l7tmi"]
 [ext_resource type="PackedScene" uid="uid://b42404uct88ed" path="res://Scenes/SpaceShooter/basic_enemy.tscn" id="4_fkank"]
+[ext_resource type="Script" path="res://Scripts/SpaceShooter/Enemy.gd" id="6_065ur"]
 [ext_resource type="PackedScene" uid="uid://b0qn2h43jf3sk" path="res://Scenes/fps_counter.tscn" id="6_jdxeq"]
 
 [node name="SpaceShooterMain" type="Node2D"]
@@ -19,6 +20,9 @@ position = Vector2(113, 152)
 [node name="Character" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("3_l7tmi")
+
+[node name="Enemy" type="Node2D" parent="."]
+script = ExtResource("6_065ur")
 
 [node name="BasicEnemyTimer" type="Timer" parent="."]
 unique_name_in_owner = true
