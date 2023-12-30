@@ -6,8 +6,10 @@ extends Area2D
 
 @onready var bullets: CharBullet = %PlayerBullets
 @onready var tracker_bullets: CharBullet = %TrackerBullets
+@onready var circular_bullets: CharBullet = %CircularBullets
 @onready var bullet_timer: Timer = %PBulletTimer
 @onready var tracker_bullet_timer: Timer = %TrackerBulletTimer
+@onready var circular_bullet_timer: Timer = %CircularBulletTimer
 @onready var hit_timer: Timer = %HitPauseTimer
 
 @export var EnemiesNode :Node2D
@@ -19,6 +21,7 @@ extends Area2D
 
 var can_shoot := true
 var can_shoot_tracker := true
+var can_shoot_circular := true
 var smaterial: Material
 
 
@@ -41,6 +44,10 @@ func _physics_process(delta):
 		self.shoot_tracker_bullets()
 		self.can_shoot_tracker = false
 		self.tracker_bullet_timer.start(10 * self.shooting_period)
+	if self.can_shoot_circular:
+		self.shoot_circular_bullets()
+		self.can_shoot_circular = false
+		self.circular_bullet_timer.start(12 * self.shooting_period)
 
 
 func shoot_tracker_bullets():
@@ -60,6 +67,15 @@ func shoot_tracker_bullets():
 			target = dv
 	
 	self.tracker_bullets.shoot(self.position, target)
+
+
+func shoot_circular_bullets():
+	# 60 degrees
+	var rot_offset := 1.0472
+	for i in range(6):
+		self.circular_bullets.shoot(
+			self.position, 
+			Vector2.RIGHT.rotated(self.rotation + i * rot_offset))
 
 
 func take_damage(damage: int) -> void:
@@ -83,6 +99,10 @@ func _on_p_bullet_timer_timeout():
 
 func _on_tracker_bullet_timer_timeout():
 	self.can_shoot_tracker = true
+
+
+func _on_circular_bullet_timer_timeout():
+	self.can_shoot_circular = true
 
 
 func _on_area_entered(area):

@@ -18,7 +18,8 @@ class Bullet:
 	var position: Vector2
 	var direction: Vector2
 	var speed: float
-	var body :RID
+	var body: RID
+	var alive_time := 0.0
 	
 	func _init(speed: float, position: Vector2):
 		self.speed = speed
@@ -76,7 +77,7 @@ func shoot(origin: Vector2, direction: Vector2) -> void:
 	self.active_bullets.append(bullet)
 
 
-func physics_process(delta):
+func physics_process(delta: float):
 	var offset := 32.0
 	var bullets_to_remove:Array[Bullet] = [] 
 	for bullet in self.active_bullets:
@@ -93,7 +94,9 @@ func physics_process(delta):
 				bullet.position.x < -offset or \
 				bullet.position.y < -offset:
 			bullets_to_remove.append(bullet)
-			
+			continue
+		
+		bullet.alive_time += delta
 		transform2d.origin = bullet.position
 		PhysicsServer2D.body_set_state(
 			bullet.body, PhysicsServer2D.BODY_STATE_TRANSFORM, transform2d

@@ -12,7 +12,7 @@ class_name CharBullet
 
 var bullet_array: BulletArray
 var stop := false
-
+var passed_time := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,6 +35,8 @@ func shoot(origin: Vector2, direction: Vector2):
 
 
 func _physics_process(delta):
+	self.passed_time += delta
+	material.set_shader_parameter("time", self.passed_time)
 	self.bullet_array.physics_process(delta)
 
 
