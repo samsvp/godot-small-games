@@ -5,13 +5,13 @@ extends Node2D
 @export var spin_enemy_scene: PackedScene
 @export var spin_enemy_max_count: int = 2
 
-var basic_enemy_current_count: int = 0
-var spin_enemy_current_count: int = 0
-
 @onready var basic_enemy_timer := %BasicEnemyTimer
 @onready var spin_enemy_timer := %RotatingEnemyTimer
 @onready var Player := %Player
 @onready var EnemiesNode := %Enemies
+
+var basic_enemy_current_count: int = 0
+var spin_enemy_current_count: int = 0
 
 
 # Called when the node enters the scene tree for the first time.

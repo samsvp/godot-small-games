@@ -25,6 +25,9 @@ var can_shoot := true
 var can_shoot_tracker := true
 var can_shoot_circular := true
 var can_shoot_back := true
+var back_weapon_gotten := false
+var tracker_weapon_gotten := false
+var circular_weapon_gotten := false
 var smaterial: Material
 
 
@@ -43,15 +46,16 @@ func _physics_process(delta):
 		self.bullets.shoot(self.position, Vector2.UP)
 		self.can_shoot = false
 		self.bullet_timer.start(self.shooting_period)
-	if self.can_shoot_tracker and EnemiesNode != null:
+	if self.tracker_weapon_gotten \
+			and self.can_shoot_tracker and EnemiesNode != null:
 		self.shoot_tracker_bullets()
 		self.can_shoot_tracker = false
 		self.tracker_bullet_timer.start(20 * self.shooting_period)
-	if self.can_shoot_circular:
+	if self.circular_weapon_gotten and self.can_shoot_circular:
 		self.shoot_circular_bullets()
 		self.can_shoot_circular = false
 		self.circular_bullet_timer.start(12 * self.shooting_period)
-	if self.can_shoot_back:
+	if self.back_weapon_gotten and self.can_shoot_back:
 		self.shoot_back_bullets()
 		self.can_shoot_back = false
 		self.back_bullet_timer.start(5 * self.shooting_period)
