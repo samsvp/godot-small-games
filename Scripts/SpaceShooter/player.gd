@@ -4,15 +4,21 @@
 
 extends Area2D
 
+@onready var bullets: CharBullet = %PlayerBullets
+@onready var tracker_bullets: CharBullet = %TrackerBullets
+@onready var bullet_timer: Timer = %PBulletTimer
+@onready var tracker_bullet_timer: Timer = %TrackerBulletTimer
+@onready var hit_timer: Timer = %HitPauseTimer
+
+@export var EnemiesNode :Node2D
 @export var SPEED := 300
 @export var current_health = 5
 @export var shooting_period := 0.5
-@onready var bullets: CharBullet = %PlayerBullets
-@onready var bullet_timer: Timer = %PBulletTimer
-@onready var hit_timer: Timer = %HitPauseTimer
 @export var color := Color(0.5, 0.95, 0.5)
 @export var hit_color := Color(1.0, 1.0, 1.0)
+
 var can_shoot := true
+var can_shoot_tracker := true
 var smaterial: Material
 
 
@@ -27,10 +33,33 @@ func _physics_process(delta):
 		self.position, input_direction, SPEED, delta
 	)
 	
-	if Input.is_action_pressed("ui_accept") and self.can_shoot:
+	if self.can_shoot:
 		self.bullets.shoot(self.position, Vector2.UP)
 		self.can_shoot = false
 		self.bullet_timer.start(self.shooting_period)
+	if self.can_shoot_tracker and EnemiesNode != null:
+		self.shoot_tracker_bullets()
+		self.can_shoot_tracker = false
+		self.tracker_bullet_timer.start(10 * self.shooting_period)
+
+
+func shoot_tracker_bullets():
+	var target := Vector2.UP
+	var min_dist := INF
+	for enemy: Node2D in EnemiesNode.get_children():
+		# enemy has already been defeated
+		if enemy.bullets.stop == true:
+			continue
+			
+		var dv = enemy.position - self.position
+		var dist := dv.length_squared()
+		# add a little randomness so that it doesn't always tracks 
+		# the closest enemy
+		if dist < min_dist and (target == Vector2.UP or randf() < 0.6):
+			min_dist = dist
+			target = dv
+	
+	self.tracker_bullets.shoot(self.position, target)
 
 
 func take_damage(damage: int) -> void:
@@ -50,6 +79,10 @@ func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index)
 
 func _on_p_bullet_timer_timeout():
 	self.can_shoot = true
+
+
+func _on_tracker_bullet_timer_timeout():
+	self.can_shoot_tracker = true
 
 
 func _on_area_entered(area):

@@ -13,9 +13,10 @@ script = ExtResource("1_8qakj")
 basic_enemy_scene = ExtResource("4_fkank")
 spin_enemy_scene = ExtResource("3_15ira")
 
-[node name="Player" parent="." instance=ExtResource("1_y6e5n")]
+[node name="Player" parent="." node_paths=PackedStringArray("EnemiesNode") instance=ExtResource("1_y6e5n")]
 unique_name_in_owner = true
 position = Vector2(113, 152)
+EnemiesNode = NodePath("../Enemies")
 
 [node name="Character" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -35,6 +36,9 @@ offset_left = 824.0
 offset_top = -2.0
 offset_right = 901.0
 offset_bottom = 30.0
+
+[node name="Enemies" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [connection signal="timeout" from="BasicEnemyTimer" to="." method="_on_basic_enemy_timer_timeout"]
 [connection signal="timeout" from="RotatingEnemyTimer" to="." method="_on_rotating_enemy_timer_timeout"]

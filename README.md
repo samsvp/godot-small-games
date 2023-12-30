@@ -39,6 +39,7 @@ The third is a cross that shoots into the nearest enemy and comes back
 ![cb](ImagesReadme/bh_crossbullets.png)
 
 The fourth shoots bullets downwards, as if it is the engines fire
+
 ![fb](ImagesReadme/bh_firebullets.png)
 
 

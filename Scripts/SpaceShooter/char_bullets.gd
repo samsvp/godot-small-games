@@ -2,14 +2,17 @@ extends Node2D
 
 class_name CharBullet
 
-@export var BULLET_COUNT: int = 100
 @onready var bullet_image = preload("res://Sprites/white.png")
+
+@export var BULLET_COUNT: int = 100
 @export var speed := 10.0
 @export var sprite_scale := 0.2
 @export var bullet_color: Color
 @export var collision_layer: int = 1
+
 var bullet_array: BulletArray
 var stop := false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

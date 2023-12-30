@@ -2,15 +2,17 @@ extends Node2D
 
 @export var basic_enemy_scene: PackedScene
 @export var basic_enemy_max_count: int = 5
-var basic_enemy_current_count: int = 0
-
 @export var spin_enemy_scene: PackedScene
 @export var spin_enemy_max_count: int = 2
+
+var basic_enemy_current_count: int = 0
 var spin_enemy_current_count: int = 0
 
 @onready var basic_enemy_timer := %BasicEnemyTimer
 @onready var spin_enemy_timer := %RotatingEnemyTimer
 @onready var Player := %Player
+@onready var EnemiesNode := %Enemies
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,7 +34,7 @@ func spawn_enemy(current_count: int, max_count: int,
 	
 	var enemy_scene = pscene.instantiate()
 	enemy_scene.Player = Player
-	add_child(enemy_scene)
+	EnemiesNode.add_child(enemy_scene)
 	timer.start(t)
 	return current_count + 1
 
