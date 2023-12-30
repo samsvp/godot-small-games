@@ -12,14 +12,10 @@ mat2 rotate2d(float _angle){
 }
 
 
-float sdf_cross(vec2 pos, vec2 wh, float corner_radius)
+float sdf_rounded_X( in vec2 p, in float w, in float r )
 {
-	pos = abs(pos); 
-	pos = (pos.y>pos.x) ? pos.yx : pos.xy;
-    vec2  q = pos - wh;
-    float k = max(q.y,q.x);
-    vec2  w = (k>0.0) ? q : vec2(wh.y-pos.x,-k);
-    return sign(k)*length(max(w,0.0)) + corner_radius;
+	p = abs(p);
+	return length(p-min(p.x+p.y,w)*0.5) - r;
 }
 
 
@@ -29,7 +25,7 @@ void fragment()
 	float y = 2.0 * (0.5 - UV.y);
 	vec2 uv = rotate2d(100.0 * time) * vec2(x, y);
 	
-	float d = sdf_cross( uv, vec2(0.75, 0.25), 0.1 );
+	float d = sdf_rounded_X(uv, 0.8, 0.2);
 	float alpha = pow(1.0 - d, 15.0);
 	vec3 col = bullet_color;
 	col *= 0.8 + 0.2 * cos(10.0 * d + TIME);

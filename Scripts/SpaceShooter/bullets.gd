@@ -43,9 +43,9 @@ func _init(speed: float, bullet_image: Resource, sprite_scale: float,
 	PhysicsServer2D.shape_set_data(shape, 8)
 
 
-func create_bullet() -> Bullet:
+func create_bullet(speed_multiplier: float) -> Bullet:
 	var pos := Vector2.ZERO
-	var bullet := Bullet.new(speed, pos)
+	var bullet := Bullet.new(self.speed * speed_multiplier, pos)
 	self.n_bullets += 1
 	
 	bullet.body = PhysicsServer2D.body_create()
@@ -67,11 +67,11 @@ func delete_bullet(bullet: Bullet):
 	self.n_bullets -= 1
 
 
-func shoot(origin: Vector2, direction: Vector2) -> void:
+func shoot(origin: Vector2, direction: Vector2, speed_multiplier := 1.0) -> void:
 	if self.n_bullets >= self.max_bullet_count:
 		return
 		
-	var bullet = create_bullet()
+	var bullet = create_bullet(speed_multiplier)
 	bullet.position = origin 
 	bullet.direction = direction.normalized()
 	self.active_bullets.append(bullet)

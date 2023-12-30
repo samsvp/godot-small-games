@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://danp3jjirvbv5"]
+[gd_scene load_steps=13 format=3 uid="uid://danp3jjirvbv5"]
 
 [ext_resource type="Shader" path="res://Shaders/SpaceShooter/Player.gdshader" id="1_ar7km"]
 [ext_resource type="Script" path="res://Scripts/SpaceShooter/player.gd" id="1_juu08"]
@@ -24,6 +24,10 @@ shader_parameter/bullet_color = null
 shader = ExtResource("7_gt6hb")
 shader_parameter/bullet_color = null
 shader_parameter/time = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ps32"]
+shader = ExtResource("4_qnl0s")
+shader_parameter/bullet_color = null
 
 [node name="Player" type="Area2D"]
 scale = Vector2(0.5, 0.5)
@@ -57,18 +61,29 @@ collision_layer = 2
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_i6eop")
 script = ExtResource("5_qxqj4")
-BULLET_COUNT = 20
+BULLET_COUNT = 50
 speed = 250.0
-bullet_color = Color(0.305882, 0.843137, 0.329412, 1)
+sprite_scale = 0.25
+bullet_color = Color(0.929412, 0.243137, 0.929412, 1)
 collision_layer = 2
 
 [node name="CircularBullets" type="Node2D" parent="Bullets"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_xvd0h")
 script = ExtResource("5_qxqj4")
+BULLET_COUNT = 50
 speed = 300.0
 sprite_scale = 0.35
 bullet_color = Color(0.227451, 0.898039, 0.85098, 1)
+collision_layer = 2
+
+[node name="BackBullets" type="Node2D" parent="Bullets"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_3ps32")
+script = ExtResource("5_qxqj4")
+BULLET_COUNT = 50
+speed = 200.0
+bullet_color = Color(0.898039, 0.643137, 0.219608, 1)
 collision_layer = 2
 
 [node name="Timers" type="Node2D" parent="."]
@@ -86,9 +101,13 @@ unique_name_in_owner = true
 [node name="CircularBulletTimer" type="Timer" parent="Timers"]
 unique_name_in_owner = true
 
+[node name="BackBulletTimer" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
 [connection signal="timeout" from="Timers/PBulletTimer" to="." method="_on_p_bullet_timer_timeout"]
 [connection signal="timeout" from="Timers/HitPauseTimer" to="." method="_on_hit_pause_timer_timeout"]
 [connection signal="timeout" from="Timers/TrackerBulletTimer" to="." method="_on_tracker_bullet_timer_timeout"]
 [connection signal="timeout" from="Timers/CircularBulletTimer" to="." method="_on_circular_bullet_timer_timeout"]
+[connection signal="timeout" from="Timers/BackBulletTimer" to="." method="_on_back_bullet_timer_timeout"]

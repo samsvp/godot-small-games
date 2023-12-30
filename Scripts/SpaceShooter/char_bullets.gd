@@ -29,9 +29,9 @@ func _process(delta):
 	queue_redraw()
 
 
-func shoot(origin: Vector2, direction: Vector2):
+func shoot(origin: Vector2, direction: Vector2, speed_multiplier := 1.0):
 	if not self.stop:
-		self.bullet_array.shoot(origin, direction)
+		self.bullet_array.shoot(origin, direction, speed_multiplier)
 
 
 func _physics_process(delta):
