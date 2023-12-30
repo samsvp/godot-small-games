@@ -34,9 +34,9 @@ The second bullet tracks lightly the enemies above the player
 
 ![tb](ImagesReadme/bh_trackerbullets.png)
 
-The third is a cross that shoots into the nearest enemy and comes back
+The third shoots 6 bullets in a circular pattern
 
-![cb](ImagesReadme/bh_crossbullets.png)
+![cb](ImagesReadme/bh_6bullets.png)
 
 The fourth shoots bullets downwards, as if it is the engines fire
 
