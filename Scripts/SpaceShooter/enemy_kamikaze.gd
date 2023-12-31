@@ -20,7 +20,7 @@ func _ready():
 
 
 func _physics_process(delta):
-	if Player == null:
+	if Player == null or Player.is_dead:
 		return
 	
 	var target := Player.position - self.position

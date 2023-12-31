@@ -12,7 +12,6 @@ extends Node2D
 @onready var Player := %Player
 @onready var EnemiesNode := %Enemies
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.basic_enemy_timer.start(0.5)
@@ -21,12 +20,11 @@ func _ready():
 	self.shotgunner_enemy_timer.start(0.5)
 
 
-func remove_basic_enemy() -> void:
-	self.basic_enemy_current_count -= 1
-
-
 func spawn_enemy(min_t: float, max_t: float, timer: Timer, 
 				 pscene: PackedScene) -> void:
+	if Player.is_dead:
+		return
+	
 	var t = randf_range(min_t, max_t)
 	var enemy_scene = pscene.instantiate()
 	enemy_scene.Player = Player

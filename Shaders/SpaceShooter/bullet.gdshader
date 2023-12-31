@@ -19,7 +19,7 @@ void fragment()
 	float alpha = pow(1.0 - d, 15.0);
 	vec3 col = bullet_color;
 	col *= 0.8 + 0.2 * cos(10.0 * d + TIME);
-	col = mix( col, vec3(1.0), 1.0-smoothstep(0.0,0.2,abs(d)) );
+	col += clamp(vec3(10.0/d), 0., 1.) * 15.0; // add glow
 	
 	COLOR = vec4(col, alpha);
 }

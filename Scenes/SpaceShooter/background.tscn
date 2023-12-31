@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://biudscdm2mx0m"]
+
+[ext_resource type="Shader" path="res://Shaders/SpaceShooter/background.gdshader" id="1_5ukc1"]
+[ext_resource type="Texture2D" uid="uid://ca2ut0ltvmq6m" path="res://Sprites/white.png" id="1_svipt"]
+[ext_resource type="Script" path="res://Scripts/SpaceShooter/Background.gd" id="2_ln3vq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_14thu"]
+shader = ExtResource("1_5ukc1")
+shader_parameter/u_resolution = Vector2(900, 500)
+shader_parameter/u_spotlight = null
+
+[node name="Background" type="Sprite2D"]
+material = SubResource("ShaderMaterial_14thu")
+position = Vector2(450, 250)
+scale = Vector2(7.02344, 3.88281)
+texture = ExtResource("1_svipt")
+script = ExtResource("2_ln3vq")

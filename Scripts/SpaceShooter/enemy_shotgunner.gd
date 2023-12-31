@@ -27,8 +27,10 @@ func _ready():
 
 
 func _physics_process(delta):
-	if Player == null:
+	if Player == null or Player.is_dead:
 		return
+	
+	Enemy.physics_process(self)
 	
 	var target := Player.position - self.position
 	var t_length = target.length_squared()
@@ -47,17 +49,21 @@ func _physics_process(delta):
 		self.shoot_timer.start(self.shooting_period)
 		self.is_shooting = true
 
+
 func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	self.current_health = Enemy.on_body_shape_entered(body_rid, 1, self)
 
 
 func _on_shoot_timer_timeout():
-	# 10 degrees
-	var rot_offset := 0.174533
+	if Player == null or Player.is_dead:
+		return
+	
+	var target := Vector2(0.5, 1.0).normalized()
+	var rot_offset := 0.174533 * 2 # 20 degrees
 	for i in range(6):
 		self.bullets.shoot(
 			self.position, 
-			Vector2(0.5, 1.0).normalized().rotated(self.rotation + i * rot_offset))
+			target.rotated(self.rotation + i * rot_offset))
 	
 	self.is_shooting = false
 

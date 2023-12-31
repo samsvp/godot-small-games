@@ -28,6 +28,7 @@ var can_shoot_back := true
 var back_weapon_gotten := false
 var tracker_weapon_gotten := false
 var circular_weapon_gotten := false
+var is_dead := false
 var smaterial: Material
 
 
@@ -37,6 +38,9 @@ func _ready():
 
 
 func _physics_process(delta):
+	if self.is_dead:
+		return
+	
 	var input_direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	self.position = SpaceShooterChar.move(
 		self.position, input_direction, speed, delta
@@ -96,19 +100,22 @@ func shoot_circular_bullets():
 
 
 func shoot_back_bullets():
-	# 10 degrees
-	var rot_offset := 0.174533
+	var target := Vector2(0.5, 1.0).normalized()
+	var rot_offset := 0.174533 # 10 degrees
 	for i in range(6):
 		self.back_bullets.shoot(
 			self.position, 
-			Vector2(0.5, 1.0).normalized().rotated(self.rotation + i * rot_offset))
+			target.rotated(self.rotation + i * rot_offset))
 
 
 func take_damage(damage: int) -> void:
 	self.current_health = SpaceShooterChar.take_damage(
 		self,
 		damage,
-		func(): self.visible = false,
+		func(): 
+			self.is_dead = true
+			self.visible = false
+			SpaceShooterChar.explode(self)
 	)
 	get_tree().paused = true
 
@@ -117,7 +124,8 @@ func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index)
 	PhysicsServer2D.body_set_state(
 		body_rid, PhysicsServer2D.BODY_STATE_SLEEPING, true
 	)
-	self.take_damage(1)
+	if not self.is_dead:
+		self.take_damage(1)
 
 
 func _on_p_bullet_timer_timeout():

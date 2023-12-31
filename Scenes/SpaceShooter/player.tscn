@@ -10,7 +10,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_icvk5"]
 shader = ExtResource("1_ar7km")
-shader_parameter/color = null
+shader_parameter/color = Vector3(0, 1, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_378km"]
 shader = ExtResource("4_qnl0s")
@@ -33,6 +33,7 @@ scale = Vector2(0.5, 0.5)
 collision_layer = 2
 script = ExtResource("1_juu08")
 shooting_period = 0.1
+color = Color(0, 1, 0, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -51,7 +52,7 @@ unique_name_in_owner = true
 material = SubResource("ShaderMaterial_378km")
 script = ExtResource("5_qxqj4")
 BULLET_COUNT = 50
-speed = 500.0
+speed = 350.0
 sprite_scale = 0.15
 bullet_color = Color(0.305882, 0.843137, 0.329412, 1)
 collision_layer = 2

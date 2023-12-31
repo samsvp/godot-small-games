@@ -10,11 +10,9 @@
 particle_flag_disable_z = true
 direction = Vector3(0, 0, 0)
 spread = 10.0
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 100.0
 initial_velocity_max = 100.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 hue_variation_max = 0.05
 
 [sub_resource type="Gradient" id="Gradient_c166e"]
@@ -34,13 +32,11 @@ curve = SubResource("Curve_vt7so")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l3m3e"]
 particle_flag_disable_z = true
 spread = 120.0
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 10.0
 initial_velocity_max = 150.0
 angular_velocity_min = -20.28
 angular_velocity_max = 20.28
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 damping_min = 100.0
 damping_max = 100.0
 scale_min = 0.5

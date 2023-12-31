@@ -14,12 +14,12 @@ extends Area2D
 @onready var hit_timer := %HitTimer
 @onready var bullets: CharBullet = %EnemyBullets
 @onready var sprite2d: Sprite2D = %Sprite2D
+@onready var smaterial: Material = %Sprite2D.material
 @onready var collision_shape2d: CollisionShape2D = $CollisionShape2D
 
 var height_offset: float
 var target: Vector2
-var Player := CharacterBody2D
-@onready var smaterial: Material = %Sprite2D.material
+var Player: Node2D
 
 
 func _ready():
@@ -39,6 +39,9 @@ func _physics_process(delta):
 
 
 func _on_shoot_timer_timeout():
+	if Player == null or Player.is_dead:
+		return
+	
 	var target = Player.position
 	self.bullets.shoot(self.position, target - self.position)
 

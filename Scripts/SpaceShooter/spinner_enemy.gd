@@ -21,7 +21,7 @@ var height_offset: float
 var target: Vector2 
 var rotation_velocity: float = 1
 var max_rot_vel: float = 2
-var Player := CharacterBody2D
+var Player: Area2D
 var ready_to_shoot := false
 @onready var smaterial: Material = %Sprite2D.material
 
@@ -38,6 +38,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	if Player == null or Player.is_dead:
+		return
+	
 	Enemy.physics_process(self)
 	self.rotation += delta * self.rotation_velocity
 	
@@ -54,13 +57,17 @@ func _physics_process(delta):
 
 
 func _on_s_bullet_timer_timeout():
+	if Player == null or Player.is_dead:
+		return
+	
 	# 60 degrees
 	var rot_offset := 1.0472
 	for i in range(6):
 		self.bullets.shoot(self.position, 
 			Vector2.RIGHT.rotated(self.rotation + i * rot_offset))
 	
-	self.shoot_timer.start(self.shooting_period)
+	if not Player.is_dead:
+		self.shoot_timer.start(self.shooting_period)
 
 
 func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):

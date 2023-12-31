@@ -43,12 +43,10 @@ curve = SubResource("Curve_kfgji")
 particle_flag_disable_z = true
 direction = Vector3(0, -1, 0)
 spread = 83.03
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 84.51
 initial_velocity_max = 183.1
 angular_velocity_max = 81.13
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 linear_accel_min = 10.0
 linear_accel_max = 250.0
 radial_accel_min = 8.45
@@ -142,7 +140,7 @@ text = "Back"
 
 [node name="WinExplosion" type="GPUParticles2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(320, 320)
+position = Vector2(450, 500)
 emitting = false
 amount = 256
 process_material = SubResource("ParticleProcessMaterial_4wluj")
