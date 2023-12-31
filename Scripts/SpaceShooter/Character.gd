@@ -1,6 +1,4 @@
-extends Node2D
-
-class_name SpaceShooterChar
+class_name SpaceShooterChar extends Resource
 
 
 ## Moves the character into the given direction
@@ -20,4 +18,3 @@ static func take_damage(character: Node2D,
 		kill_func.call()
 	character.hit_timer.start(0.1)
 	return current_health
-	

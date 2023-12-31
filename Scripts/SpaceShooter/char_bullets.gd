@@ -1,6 +1,5 @@
-extends Node2D
+class_name CharBullet extends Node2D
 
-class_name CharBullet
 
 @onready var bullet_image = preload("res://Sprites/white.png")
 
@@ -12,7 +11,6 @@ class_name CharBullet
 
 var bullet_array: BulletArray
 var stop := false
-var passed_time := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,8 +33,6 @@ func shoot(origin: Vector2, direction: Vector2, speed_multiplier := 1.0):
 
 
 func _physics_process(delta):
-	self.passed_time += delta
-	material.set_shader_parameter("time", self.passed_time)
 	self.bullet_array.physics_process(delta)
 
 

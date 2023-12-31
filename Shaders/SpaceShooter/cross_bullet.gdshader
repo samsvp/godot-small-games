@@ -1,7 +1,6 @@
 shader_type canvas_item;
 
 uniform vec3 bullet_color;
-uniform float time;
 
 
 mat2 rotate2d(float _angle){
@@ -23,7 +22,7 @@ void fragment()
 {
 	float x = 2.0 * (UV.x - 0.5);
 	float y = 2.0 * (0.5 - UV.y);
-	vec2 uv = rotate2d(100.0 * time) * vec2(x, y);
+	vec2 uv = rotate2d(100.0 * TIME) * vec2(x, y);
 	
 	float d = sdf_rounded_X(uv, 0.8, 0.2);
 	float alpha = pow(1.0 - d, 15.0);

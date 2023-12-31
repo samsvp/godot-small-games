@@ -1,6 +1,5 @@
-extends Node2D
+class_name Enemy extends Resource
 
-class_name Enemy
 
 static func physics_process(enemy: Area2D):
 	if enemy.bullets.stop and enemy.bullets.bullet_array.n_bullets == 0:

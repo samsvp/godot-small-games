@@ -15,7 +15,7 @@ extends Area2D
 @onready var hit_timer: Timer = %HitPauseTimer
 
 @export var EnemiesNode :Node2D
-@export var SPEED := 300
+@export var speed := 300
 @export var current_health = 5
 @export var shooting_period := 0.5
 @export var color := Color(0.5, 0.95, 0.5)
@@ -39,7 +39,7 @@ func _ready():
 func _physics_process(delta):
 	var input_direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	self.position = SpaceShooterChar.move(
-		self.position, input_direction, SPEED, delta
+		self.position, input_direction, speed, delta
 	)
 	
 	if self.can_shoot:

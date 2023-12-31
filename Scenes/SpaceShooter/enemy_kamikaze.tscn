@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://1iqg6ubotj6c"]
+
+[ext_resource type="Script" path="res://Scripts/SpaceShooter/enemy_kamikaze.gd" id="1_0js8i"]
+[ext_resource type="Shader" path="res://Shaders/SpaceShooter/enemy_kamikaze.gdshader" id="1_hk01p"]
+[ext_resource type="Texture2D" uid="uid://ca2ut0ltvmq6m" path="res://Sprites/white.png" id="2_0h303"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jjbbl"]
+resource_local_to_scene = true
+shader = ExtResource("1_hk01p")
+shader_parameter/color = Vector3(1, 1, 1)
+
+[node name="EnemyKamikaze" type="Area2D"]
+collision_layer = 3
+collision_mask = 2
+script = ExtResource("1_0js8i")
+color = Color(0.796078, 0.054902, 0.211765, 1)
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0.5, 0)
+polygon = PackedVector2Array(-0.5, 0, 23.5, -44, -0.5, -51, -24.5, -44)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_jjbbl")
+texture = ExtResource("2_0h303")
+
+[node name="HitTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]

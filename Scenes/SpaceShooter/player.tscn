@@ -23,7 +23,6 @@ shader_parameter/bullet_color = null
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xvd0h"]
 shader = ExtResource("7_gt6hb")
 shader_parameter/bullet_color = null
-shader_parameter/time = null
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3ps32"]
 shader = ExtResource("4_qnl0s")
