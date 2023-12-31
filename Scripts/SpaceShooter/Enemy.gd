@@ -6,6 +6,17 @@ static func physics_process(enemy: Area2D):
 		enemy.queue_free()
 
 
+static func spawn_location() -> Vector2:
+	var position: Vector2
+	if randf() < 0.5:
+		position.x = randi_range(50, Manager.screen_width - 50)
+		position.y = 0 if randf() < 0.5 else Manager.screen_height
+	else:
+		position.x = 0 if randf() < 0.5 else Manager.screen_width
+		position.y = randi_range(50, Manager.screen_height - 50)
+	return position
+
+
 ## Marks the body shape as sleeping and returns the enemy's health after 
 ## damage calculation
 static func on_body_shape_entered(body_rid: RID, damage: int, 

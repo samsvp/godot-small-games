@@ -27,10 +27,9 @@ func _ready():
 	self.target = Vector2(self.position.x, Manager.screen_height / 2)
 	self.height_offset = randf_range(-100, 100)
 	self.smaterial.set_shader_parameter("color", color)
-	shoot_timer.start(1)
+	self.shoot_timer.start(1)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	Enemy.physics_process(self)
 	if self.position.y > Manager.screen_height / 2 + height_offset:

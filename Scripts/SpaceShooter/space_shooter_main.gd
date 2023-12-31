@@ -3,10 +3,12 @@ extends Node2D
 @export var basic_enemy_scene: PackedScene
 @export var spin_enemy_scene: PackedScene
 @export var kamikaze_enemy_scene: PackedScene
+@export var shotgunner_enemy_scene: PackedScene
 
 @onready var basic_enemy_timer := %BasicEnemyTimer
 @onready var spin_enemy_timer := %RotatingEnemyTimer
 @onready var kamikaze_enemy_timer := %KamikazeEnemyTimer
+@onready var shotgunner_enemy_timer := %ShotgunnerEnemyTimer
 @onready var Player := %Player
 @onready var EnemiesNode := %Enemies
 
@@ -16,6 +18,7 @@ func _ready():
 	self.basic_enemy_timer.start(0.5)
 	self.spin_enemy_timer.start(10)
 	self.kamikaze_enemy_timer.start(0.5)
+	self.shotgunner_enemy_timer.start(0.5)
 
 
 func remove_basic_enemy() -> void:
@@ -46,4 +49,10 @@ func _on_rotating_enemy_timer_timeout():
 func _on_kamikaze_enemy_timer_timeout():
 	self.spawn_enemy(
 		6.0, 10.0, self.kamikaze_enemy_timer, self.kamikaze_enemy_scene
+	)
+
+
+func _on_shotgunner_enemy_timer_timeout():
+	spawn_enemy(
+		6.0, 10.0, self.shotgunner_enemy_timer, self.shotgunner_enemy_scene
 	)

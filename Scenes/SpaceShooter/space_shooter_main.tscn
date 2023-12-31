@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpct0227dtx21"]
+[gd_scene load_steps=8 format=3 uid="uid://dpct0227dtx21"]
 
 [ext_resource type="Script" path="res://Scripts/SpaceShooter/space_shooter_main.gd" id="1_8qakj"]
 [ext_resource type="PackedScene" uid="uid://danp3jjirvbv5" path="res://Scenes/SpaceShooter/player.tscn" id="1_y6e5n"]
 [ext_resource type="PackedScene" uid="uid://bhgfdhcrf3d5m" path="res://Scenes/SpaceShooter/spinner_enemy.tscn" id="3_15ira"]
 [ext_resource type="PackedScene" uid="uid://b42404uct88ed" path="res://Scenes/SpaceShooter/basic_enemy.tscn" id="4_fkank"]
 [ext_resource type="PackedScene" uid="uid://1iqg6ubotj6c" path="res://Scenes/SpaceShooter/enemy_kamikaze.tscn" id="4_laqul"]
+[ext_resource type="PackedScene" uid="uid://dumkome4htpm5" path="res://Scenes/SpaceShooter/enemy_shotgunner.tscn" id="5_la1ee"]
 [ext_resource type="PackedScene" uid="uid://b0qn2h43jf3sk" path="res://Scenes/fps_counter.tscn" id="6_jdxeq"]
 
 [node name="SpaceShooterMain" type="Node2D"]
@@ -12,6 +13,7 @@ script = ExtResource("1_8qakj")
 basic_enemy_scene = ExtResource("4_fkank")
 spin_enemy_scene = ExtResource("3_15ira")
 kamikaze_enemy_scene = ExtResource("4_laqul")
+shotgunner_enemy_scene = ExtResource("5_la1ee")
 
 [node name="Player" parent="." node_paths=PackedStringArray("EnemiesNode") instance=ExtResource("1_y6e5n")]
 unique_name_in_owner = true
@@ -38,6 +40,10 @@ unique_name_in_owner = true
 [node name="KamikazeEnemyTimer" type="Timer" parent="Timers"]
 unique_name_in_owner = true
 
+[node name="ShotgunnerEnemyTimer" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+
 [connection signal="timeout" from="Timers/BasicEnemyTimer" to="." method="_on_basic_enemy_timer_timeout"]
 [connection signal="timeout" from="Timers/RotatingEnemyTimer" to="." method="_on_rotating_enemy_timer_timeout"]
 [connection signal="timeout" from="Timers/KamikazeEnemyTimer" to="." method="_on_kamikaze_enemy_timer_timeout"]
+[connection signal="timeout" from="Timers/ShotgunnerEnemyTimer" to="." method="_on_shotgunner_enemy_timer_timeout"]

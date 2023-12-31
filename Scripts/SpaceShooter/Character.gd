@@ -18,3 +18,9 @@ static func take_damage(character: Node2D,
 		kill_func.call()
 	character.hit_timer.start(0.1)
 	return current_health
+
+
+static func look_towards(target: Vector2, character: Area2D, 
+						 delta: float) -> float:
+	var angle := target.angle() - PI / 2
+	return lerp_angle(character.rotation, angle, 10 * delta)

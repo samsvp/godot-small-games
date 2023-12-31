@@ -9,19 +9,14 @@ extends Area2D
 @onready var sprite2d: Sprite2D = %Sprite2D
 @onready var smaterial: Material = %Sprite2D.material
 
-var Player := CharacterBody2D
+var Player: Node2D
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.speed = abs(randfn(1.0, 0.2) * self.speed)
 	self.smaterial.set_shader_parameter("color", color)
-	if randf() < 0.5:
-		self.position.x = randi_range(50, Manager.screen_width - 50)
-		self.position.y = 0 if randf() < 0.5 else Manager.screen_height
-	else:
-		self.position.x = 0 if randf() < 0.5 else Manager.screen_width
-		self.position.y = randi_range(50, Manager.screen_height - 50)
+	self.position = Enemy.spawn_location()
 
 
 func _physics_process(delta):
@@ -29,8 +24,7 @@ func _physics_process(delta):
 		return
 	
 	var target := Player.position - self.position
-	var angle := target.angle() - PI / 2
-	self.rotation = lerp_angle(self.rotation, angle, 10 * delta)
+	self.rotation = SpaceShooterChar.look_towards(target, self, delta)
 	self.position = SpaceShooterChar.move(
 		self.position, target, speed, delta
 	)

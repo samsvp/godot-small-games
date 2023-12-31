@@ -117,6 +117,7 @@ func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index)
 	PhysicsServer2D.body_set_state(
 		body_rid, PhysicsServer2D.BODY_STATE_SLEEPING, true
 	)
+	self.take_damage(1)
 
 
 func _on_p_bullet_timer_timeout():
