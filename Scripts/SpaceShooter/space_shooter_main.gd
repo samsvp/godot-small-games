@@ -12,45 +12,86 @@ extends Node2D
 @onready var Player := %Player
 @onready var EnemiesNode := %Enemies
 
+var current_enemies: Array[Area2D] = []
+var wave_enemy_count := -1
+var wave_index = 0
+@onready var waves = [
+	[{"enemy": basic_enemy_scene, "amount": 10, "min_t": 2, "max_t": 3}],
+	
+	[{"enemy": basic_enemy_scene, "amount": 20, "min_t": 2, "max_t": 3}],
+	
+	[{"enemy": basic_enemy_scene, "amount": 20, "min_t": 2, "max_t": 3}, 
+	{"enemy": shotgunner_enemy_scene, "amount": 5}],
+	
+	[{"enemy": basic_enemy_scene, "amount": 30, "min_t": 2, "max_t": 3},
+	{"enemy": shotgunner_enemy_scene, "amount": 10, "min_t": 3, "max_t": 4}],
+	
+	[{"enemy": basic_enemy_scene, "amount": 20, "min_t": 2, "max_t": 3},
+	{"enemy": shotgunner_enemy_scene, "amount": 5, "min_t": 3, "max_t": 4},
+	{"enemy": kamikaze_enemy_scene, "amount": 2, "min_t": 5, "max_t": 8}],
+	
+	[{"enemy": basic_enemy_scene, "amount": 25, "min_t": 2, "max_t": 3},
+	{"enemy": shotgunner_enemy_scene, "amount": 8, "min_t": 3, "max_t": 4},
+	{"enemy": kamikaze_enemy_scene, "amount": 5, "min_t": 5, "max_t": 8}],
+	
+	[{"enemy": basic_enemy_scene, "amount": 25, "min_t": 2, "max_t": 3},
+	{"enemy": shotgunner_enemy_scene, "amount": 5, "min_t": 3, "max_t": 4},
+	{"enemy": kamikaze_enemy_scene, "amount": 5, "min_t": 5, "max_t": 8},
+	{"enemy": spin_enemy_scene, "amount": 2, "min_t": 5, "max_t": 8}],
+	
+	[{"enemy": basic_enemy_scene, "amount": 30, "min_t": 2, "max_t": 3},
+	{"enemy": shotgunner_enemy_scene, "amount": 10, "min_t": 3, "max_t": 4},
+	{"enemy": kamikaze_enemy_scene, "amount": 8, "min_t": 5, "max_t": 8},
+	{"enemy": spin_enemy_scene, "amount": 5, "min_t": 5, "max_t": 8}],
+]
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.basic_enemy_timer.start(0.5)
-	self.spin_enemy_timer.start(10)
-	self.kamikaze_enemy_timer.start(0.5)
-	self.shotgunner_enemy_timer.start(0.5)
+	self.spawn_wave()
 
 
-func spawn_enemy(min_t: float, max_t: float, timer: Timer, 
-				 pscene: PackedScene) -> void:
-	if Player.is_dead:
-		return
+func _process(delta):
+	if current_enemies.size() != wave_enemy_count:
+		return 
 	
-	var t = randf_range(min_t, max_t)
-	var enemy_scene = pscene.instantiate()
-	enemy_scene.Player = Player
-	EnemiesNode.add_child(enemy_scene)
-	timer.start(t)
+	# check if the current wave has finished
+	var finished_wave := true
+	for enemy in current_enemies:
+		if is_instance_valid(enemy) and enemy.current_health > 0:
+			finished_wave = false
+			break
+	if finished_wave:
+		if self.wave_index < self.waves.size():
+			wave_index += 1
 
 
-func _on_basic_enemy_timer_timeout():
-	self.spawn_enemy(
-		2.0, 3.0, self.basic_enemy_timer, self.basic_enemy_scene
-	)
+# await makes this function a coroutine
+func spawn_enemy_coroutine(pscene: PackedScene, amount: int,
+				 min_t: float, max_t: float) -> void:
+	var timer := Timer.new()
+	add_child(timer)
+	for i in range(amount):
+		if Player.is_dead:
+			return
+	
+		var enemy_scene = pscene.instantiate()
+		enemy_scene.Player = Player
+		EnemiesNode.add_child(enemy_scene)
+		
+		self.current_enemies.append(enemy_scene)
+		
+		var t = randf_range(min_t, max_t)
+		timer.start(t)
+		await timer.timeout
+	timer.queue_free()
 
 
-func _on_rotating_enemy_timer_timeout():
-	self.spawn_enemy(
-		8.0, 12.0, self.spin_enemy_timer, self.spin_enemy_scene
-	)
-
-
-func _on_kamikaze_enemy_timer_timeout():
-	self.spawn_enemy(
-		6.0, 10.0, self.kamikaze_enemy_timer, self.kamikaze_enemy_scene
-	)
-
-
-func _on_shotgunner_enemy_timer_timeout():
-	spawn_enemy(
-		6.0, 10.0, self.shotgunner_enemy_timer, self.shotgunner_enemy_scene
-	)
+func spawn_wave():
+	self.wave_enemy_count = 0
+	var wave = self.waves[self.wave_index]
+	for enemy_info in wave:
+		self.spawn_enemy_coroutine(
+			enemy_info["enemy"], enemy_info["amount"], 
+			enemy_info["min_t"], enemy_info["max_t"]
+		)
+		self.wave_enemy_count += enemy_info["amount"]

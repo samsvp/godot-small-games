@@ -25,9 +25,9 @@ var can_shoot := true
 var can_shoot_tracker := true
 var can_shoot_circular := true
 var can_shoot_back := true
-var back_weapon_gotten := false
-var tracker_weapon_gotten := false
-var circular_weapon_gotten := false
+var back_weapon_gotten := true
+var tracker_weapon_gotten := true
+var circular_weapon_gotten := true
 var is_dead := false
 var smaterial: Material
 
@@ -70,7 +70,7 @@ func shoot_tracker_bullets():
 	var min_dist := INF
 	for enemy: Node2D in EnemiesNode.get_children():
 		# enemy has already been defeated
-		if enemy.bullets.stop == true:
+		if enemy.current_health <= 0:
 			continue
 			
 		var dv = enemy.position - self.position

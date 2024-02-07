@@ -54,8 +54,3 @@ unique_name_in_owner = true
 
 [node name="ShotgunnerEnemyTimer" type="Timer" parent="Timers"]
 unique_name_in_owner = true
-
-[connection signal="timeout" from="Timers/BasicEnemyTimer" to="." method="_on_basic_enemy_timer_timeout"]
-[connection signal="timeout" from="Timers/RotatingEnemyTimer" to="." method="_on_rotating_enemy_timer_timeout"]
-[connection signal="timeout" from="Timers/KamikazeEnemyTimer" to="." method="_on_kamikaze_enemy_timer_timeout"]
-[connection signal="timeout" from="Timers/ShotgunnerEnemyTimer" to="." method="_on_shotgunner_enemy_timer_timeout"]

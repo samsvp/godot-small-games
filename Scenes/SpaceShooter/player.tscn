@@ -43,7 +43,7 @@ texture = ExtResource("2_fe3gq")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 build_mode = 1
-polygon = PackedVector2Array(0, -35, 20, 35, -20, 35)
+polygon = PackedVector2Array(0, -2, 10, 20, -10, 20)
 
 [node name="Bullets" type="Node2D" parent="."]
 
