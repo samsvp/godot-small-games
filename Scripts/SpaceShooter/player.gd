@@ -25,9 +25,9 @@ var can_shoot := true
 var can_shoot_tracker := true
 var can_shoot_circular := true
 var can_shoot_back := true
-var back_weapon_gotten := true
-var tracker_weapon_gotten := true
-var circular_weapon_gotten := true
+var back_weapon_gotten := false
+var tracker_weapon_gotten := false
+var circular_weapon_gotten := false
 var is_dead := false
 var smaterial: Material
 

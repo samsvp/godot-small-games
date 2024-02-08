@@ -16,33 +16,38 @@ var current_enemies: Array[Area2D] = []
 var wave_enemy_count := -1
 var wave_index = 0
 @onready var waves = [
-	[{"enemy": basic_enemy_scene, "amount": 10, "min_t": 2, "max_t": 3}],
+	[{"enemy": kamikaze_enemy_scene, "amount": 30, "min_t": 1.0, "max_t": 3.0},
+	{"enemy": basic_enemy_scene, "amount": 20, "min_t": 1.5, "max_t": 5.0}],
 	
-	[{"enemy": basic_enemy_scene, "amount": 20, "min_t": 2, "max_t": 3}],
+	[{"enemy": kamikaze_enemy_scene, "amount": 35, "min_t": 1.0, "max_t": 3.0},
+	{"enemy": basic_enemy_scene, "amount": 28, "min_t": 1.0, "max_t": 4.0}],
 	
-	[{"enemy": basic_enemy_scene, "amount": 20, "min_t": 2, "max_t": 3}, 
-	{"enemy": shotgunner_enemy_scene, "amount": 5}],
+	[{"enemy": kamikaze_enemy_scene, "amount": 25, "min_t": 1.0, "max_t": 3.0},
+	{"enemy": basic_enemy_scene, "amount": 20, "min_t": 1.0, "max_t": 4.0}, 
+	{"enemy": shotgunner_enemy_scene, "amount": 15, "min_t": 5.0, "max_t": 10.0}],
 	
-	[{"enemy": basic_enemy_scene, "amount": 30, "min_t": 2, "max_t": 3},
-	{"enemy": shotgunner_enemy_scene, "amount": 10, "min_t": 3, "max_t": 4}],
+	[{"enemy": kamikaze_enemy_scene, "amount": 35, "min_t": 1.0, "max_t": 3.0},
+	{"enemy": basic_enemy_scene, "amount": 30, "min_t": 1.0, "max_t": 4.0}, 
+	{"enemy": shotgunner_enemy_scene, "amount": 25, "min_t": 5.0, "max_t": 10.0}],
 	
-	[{"enemy": basic_enemy_scene, "amount": 20, "min_t": 2, "max_t": 3},
-	{"enemy": shotgunner_enemy_scene, "amount": 5, "min_t": 3, "max_t": 4},
-	{"enemy": kamikaze_enemy_scene, "amount": 2, "min_t": 5, "max_t": 8}],
+	[{"enemy": kamikaze_enemy_scene, "amount": 35, "min_t": 1.0, "max_t": 3.0},
+	{"enemy": basic_enemy_scene, "amount": 35, "min_t": 1.0, "max_t": 4.0}, 
+	{"enemy": shotgunner_enemy_scene, "amount": 35, "min_t": 5.0, "max_t": 10.0}],
 	
-	[{"enemy": basic_enemy_scene, "amount": 25, "min_t": 2, "max_t": 3},
-	{"enemy": shotgunner_enemy_scene, "amount": 8, "min_t": 3, "max_t": 4},
-	{"enemy": kamikaze_enemy_scene, "amount": 5, "min_t": 5, "max_t": 8}],
+	[{"enemy": kamikaze_enemy_scene, "amount": 25, "min_t": 1.0, "max_t": 3.0},
+	{"enemy": basic_enemy_scene, "amount": 25, "min_t": 1.0, "max_t": 4.0}, 
+	{"enemy": shotgunner_enemy_scene, "amount": 25, "min_t": 5.0, "max_t": 10.0},
+	{"enemy": spin_enemy_scene, "amount": 10, "min_t": 8.0, "max_t": 12.0}],
 	
-	[{"enemy": basic_enemy_scene, "amount": 25, "min_t": 2, "max_t": 3},
-	{"enemy": shotgunner_enemy_scene, "amount": 5, "min_t": 3, "max_t": 4},
-	{"enemy": kamikaze_enemy_scene, "amount": 5, "min_t": 5, "max_t": 8},
-	{"enemy": spin_enemy_scene, "amount": 2, "min_t": 5, "max_t": 8}],
+	[{"enemy": kamikaze_enemy_scene, "amount": 35, "min_t": 1.0, "max_t": 3.0},
+	{"enemy": basic_enemy_scene, "amount": 30, "min_t": 1.0, "max_t": 4.0}, 
+	{"enemy": shotgunner_enemy_scene, "amount": 30, "min_t": 5.0, "max_t": 10.0},
+	{"enemy": spin_enemy_scene, "amount": 15, "min_t": 8.0, "max_t": 12.0}],
 	
-	[{"enemy": basic_enemy_scene, "amount": 30, "min_t": 2, "max_t": 3},
-	{"enemy": shotgunner_enemy_scene, "amount": 10, "min_t": 3, "max_t": 4},
-	{"enemy": kamikaze_enemy_scene, "amount": 8, "min_t": 5, "max_t": 8},
-	{"enemy": spin_enemy_scene, "amount": 5, "min_t": 5, "max_t": 8}],
+	[{"enemy": kamikaze_enemy_scene, "amount": 35, "min_t": 1.0, "max_t": 3.0},
+	{"enemy": basic_enemy_scene, "amount": 35, "min_t": 1.0, "max_t": 4.0}, 
+	{"enemy": shotgunner_enemy_scene, "amount": 35, "min_t": 5.0, "max_t": 10.0},
+	{"enemy": spin_enemy_scene, "amount": 25, "min_t": 8.0, "max_t": 12.0}],
 ]
 
 # Called when the node enters the scene tree for the first time.

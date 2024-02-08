@@ -63,6 +63,8 @@ func _on_s_bullet_timer_timeout():
 	# 60 degrees
 	var rot_offset := 1.0472
 	for i in range(6):
+		if i % 2 == 0:
+			continue
 		self.bullets.shoot(self.position, 
 			Vector2.RIGHT.rotated(self.rotation + i * rot_offset))
 	

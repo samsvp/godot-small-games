@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var shooting_period := 1.0
-@export var current_health := 6
+@export var current_health := 3
 @export var speed: float = 150
 @export var color := Color(0.95, 0.5, 0.5)
 @export var hit_color := Color(1.0, 1.0, 0.2)

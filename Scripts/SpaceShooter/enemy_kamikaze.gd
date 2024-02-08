@@ -1,7 +1,7 @@
 extends Area2D
 
-@export var current_health := 6
-@export var speed: float = 250
+@export var current_health := 3
+@export var speed: float = 200
 @export var color := Color(0.95, 0.5, 0.5)
 @export var hit_color := Color(1.0, 1.0, 0.2)
 
@@ -9,12 +9,12 @@ extends Area2D
 @onready var sprite2d: Sprite2D = %Sprite2D
 @onready var smaterial: Material = %Sprite2D.material
 
+var offset := 12 * Vector2(randf() - 0.5, randf() - 0.5)
 var Player: Node2D
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.speed = abs(randfn(1.0, 0.2) * self.speed)
+	self.speed = abs(randfn(0.9, 0.2) * self.speed)
 	self.smaterial.set_shader_parameter("color", color)
 	self.position = Enemy.spawn_location()
 
@@ -23,7 +23,7 @@ func _physics_process(delta):
 	if Player == null or Player.is_dead:
 		return
 	
-	var target := Player.position - self.position
+	var target := Player.position - self.position + offset
 	self.rotation = SpaceShooterChar.look_towards(target, self, delta)
 	self.position = SpaceShooterChar.move(
 		self.position, target, speed, delta

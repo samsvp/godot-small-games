@@ -6,7 +6,7 @@ extends Area2D
 
 
 @export var initial_speed := 2
-@export var current_health = 6
+@export var current_health = 3
 @export var color := Color(0.95, 0.5, 0.5)
 @export var hit_color := Color(1.0, 1.0, 0.2)
 
@@ -20,9 +20,10 @@ extends Area2D
 var height_offset: float
 var target: Vector2
 var Player: Node2D
-
+var timer := Timer.new()
 
 func _ready():
+	add_child(timer)
 	self.position.x = randi_range(50, Manager.screen_width - 50)
 	self.target = Vector2(self.position.x, Manager.screen_height / 2)
 	self.height_offset = randf_range(-100, 100)
@@ -38,13 +39,21 @@ func _physics_process(delta):
 	self.position = self.position.lerp(target, delta * initial_speed)
 
 
-func _on_shoot_timer_timeout():
-	if Player == null or Player.is_dead:
-		return
+func shoot() -> void:
+	for i in range(3):
+		if Player == null or Player.is_dead:
+			return
 	
-	var target = Player.position
-	self.bullets.shoot(self.position, target - self.position)
+		var target = Player.position + 100 * Vector2(randf() - 0.5, randf() - 0.5)
+		self.bullets.shoot(self.position, target - self.position)
+		var t = randf_range(0.2, 0.3)
+		timer.start(t)
+		await timer.timeout
 
+
+func _on_shoot_timer_timeout():
+	self.shoot()
+	
 
 func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	self.current_health = Enemy.on_body_shape_entered(body_rid, 1, self)
